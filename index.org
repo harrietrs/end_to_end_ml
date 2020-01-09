@@ -1,2 +1,87 @@
-#+TITLE: Coffee and Coding
-#+SUBTITLE: Coffee and Coding
+#+OPTIONS: num:nil toc:nil author:nil timestamp:nil reveal_history:t
+#+REVEAL_THEME: white
+#+REVEAL_PLUGINS: (highlight notes)
+#+REVEAL_TITLE_SLIDE: <h1>%t</h1><h4>%s</h4><p>%e</p>
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./dsc_logo.png
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND_SIZE: 15%
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND_POSITION: left 10px bottom 10px
+#+TITLE: End-to-End Machine Learning
+#+SUBTITLE: Coffee and Coding @ONS
+#+Author: Harriet Sands
+#+Email: harriet.sands@ons.gov.uk
+
+* 
+    :PROPERTIES:
+    :reveal_background: ./apple_hq_california.jpg
+    :reveal_background_size: 100%
+    :reveal_background_position: cover
+    :END:
+#+BEGIN_NOTES
+For the purposes of this exercise I am going to use California census data to
+build a model to predict house prices
+#+END_NOTES
+* A model is not the end goal
+#+ATTR_REVEAL: :frag (appear)
+- What is it you are trying to achieve?
+  #+BEGIN_NOTES
+  how does your business expect to use and benefit from this model?
+  This is important because it will determine how you frame the roblem, what
+  algorithms you select, what performance meausre you will use to evaluate your
+  model, and how much effort you should spend tweaking it.
+  in this example, the ansmer is that the model's output (a predictio of a
+  district's median housing price) will be fed to another ML system which will
+  determine whether it is worth inesting in a given area or not
+  #+END_NOTES
+- What are the current solutions?
+  #+BEGIN_NOTES
+  understanding what the current solution looks like (if there is one) is
+  critical, as it fives you a reference performance
+   #+END_NOTES
+- How should we frame this solution?
+  #+BEGIN_NOTES
+  how should we frame this problem? supervised/unsupervised/reinforcement
+  learning? classification/regression or something else?
+  answer- this is a typical supervised learning taks since you are given albeled
+  training examples. It is a typical regression task since you are asked to
+  predict a value. More specifically this is a multiple regression probem since
+  the model will use multiple freatures to make a prediction. It is also a
+  univariate regression problem since we are only trying to predict a single
+  value for each district
+   #+END_NOTES
+** What does good mean?
+#+ATTR_REVEAL: :frag (appear)
+How do we measure performance?
+ \begin{equation}
+ RMSE = \sqrt{ \frac{1}{N}\sum_{i=1}^{N} (x_{i})^2 }
+ \end{equation}
+ # root reveal https://cdn.jsdelivr.net/npm/reveal.js@3/
+* Get the data
+** Interesting data repositories
+# :PROPERTIES:
+# :reveal_background: ./iris.jpg
+# :reveal_background_size: 5%
+# :reveal_background_position: left 30% bottom 45%
+# :reveal_background_trans: slide
+# :END:
+#+BEGIN_NOTES
+  Enter speaker notes here.
+  - With bullet points
+    - If necessary
+#+END_NOTES
+#+ATTR_ORG: :width 150 border:none box-shadow:none
+[[./iris.jpg]]
+[[./forest_fires_portugal.jpg]]
+[[./heart_disease.jpg]]
+- [[https://archive.ics.uci.edu/ml/index.php][UCI Repository]]
+- [[https://www.kaggle.com/datasets][Kaggle]]
+- [[https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research][Wikipedia]]
+  
+#+BEGIN_NOTES
+This is where you find the Iris dataset, but also forest fires in Portugal,
+heart disease predictions etc.
+#+END_NOTES
+* Discovery
+* Data Preparation
+* Model Selection
+* Fine-tuning
+* Presentation
