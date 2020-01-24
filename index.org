@@ -1,5 +1,7 @@
+#+STARTUP: hideblocks
 #+OPTIONS: num:nil toc:nil author:nil timestamp:nil reveal_history:t
 #+REVEAL_THEME: white
+#+REVEAL_ROOT: ../../../reveal.js
 #+REVEAL_PLUGINS: (highlight notes)
 #+REVEAL_TITLE_SLIDE: <h1>%t</h1><h4>%s</h4><p>%e</p>
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./dsc_logo.png
@@ -12,6 +14,7 @@
 
 * 
     :PROPERTIES:
+    :CUSTOM_ID: intro_picture
     :reveal_background: ./apple_hq_california.jpg
     :reveal_background_size: 100%
     :reveal_background_position: cover
@@ -20,7 +23,60 @@
 For the purposes of this exercise I am going to use California census data to
 build a model to predict house prices
 #+END_NOTES
-* A model is not the end goal
+* Look at the big picture
+:PROPERTIES:
+:CUSTOM_ID: big_picture
+:END:
+** 
+:PROPERTIES:
+:CUSTOM_ID: deng_ai
+:END:
+#+REVEAL_HTML: <h3 style="text-transform: capitalize">DengAI</h>
+#+ATTR_HTML: :style border:none; box-shadow:none; max-width:50%
+[[./deng_ai.jpg]]
+** Predicting local epidemics
+Dengue fever is a mosquito-borne disease that occurs in tropical and
+sub-tropical parts of the world.
+#+BEGIN_NOTES
+In mild cases, symptoms are similar to the flu: fever, rash, and muscle and
+joint pain. In severe cases, dengue fever can cause severe bleeding, low blood
+pressure, and even death.
+Because it is carried by mosquitoes, the transmission dynamics of dengue are
+related to climate variables such as temperature and precipitation. Although the
+relationship to climate is complex, a growing number of scientists argue that
+climate change is likely to produce distributional shifts that will have
+significant public health implications worldwide.
+In recent years dengue fever has been spreading. Historically, the disease has
+been most prevalent in Southeast Asia and the Pacific islands. These days many
+of the nearly half billion cases per year are occurring in Latin America.
+Using environmental data collected by various U.S. Federal Government
+agencies—from the Centers for Disease Control and Prevention to the National
+Oceanic and Atmospheric Administration in the U.S. Department of Commerce—can
+you predict the number of dengue fever cases reported each week in San Juan,
+Puerto Rico and Iquitos, Peru?
+Your task is to predict the number of dengue cases each week (in each location)
+based on environmental variables describing changes in temperature,
+precipitation, vegetation, and more.
+#+END_NOTES
+#+BEGIN_NOTES
+Define the objective in business terms.
+How will your solution be used?
+What are the current solutions/workarounds (if any)?
+How should you frame this problem (supervised/unsupervised, online/offline, etc.)?
+How should performance be measured?
+Is the performance measure aligned with the business objective?
+What would be the minimum performance needed to reach the business objective?
+What are comparable problems? Can you reuse experience or tools?
+Is human expertise available?
+How would you solve the problem manually?
+List the assumptions you (or others) have made so far.
+Verify assumptions if possible.
+#+END_NOTES
+
+** A model is not the end goal
+:PROPERTIES:
+:CUSTOM_ID: think_outside_the_model
+:END:
 #+ATTR_REVEAL: :frag (appear)
 - What is it you are trying to achieve?
   #+BEGIN_NOTES
@@ -28,9 +84,9 @@ build a model to predict house prices
   This is important because it will determine how you frame the roblem, what
   algorithms you select, what performance meausre you will use to evaluate your
   model, and how much effort you should spend tweaking it.
-  in this example, the ansmer is that the model's output (a predictio of a
-  district's median housing price) will be fed to another ML system which will
-  determine whether it is worth inesting in a given area or not
+  An understanding of the relationship between climate and dengue dynamics can
+  improve research initiatives and resource allocation to help fight
+  life-threatening pandemics.
   #+END_NOTES
 - What are the current solutions?
   #+BEGIN_NOTES
@@ -49,6 +105,9 @@ build a model to predict house prices
   value for each district
    #+END_NOTES
 ** What does good mean?
+:PROPERTIES:
+:CUSTOM_ID: good
+:END:
 #+ATTR_REVEAL: :frag (appear)
 How do we measure performance?
  \begin{equation}
@@ -56,7 +115,27 @@ How do we measure performance?
  \end{equation}
  # root reveal https://cdn.jsdelivr.net/npm/reveal.js@3/
 * Get the data
+:PROPERTIES:
+:CUSTOM_ID: get_the_data
+:END:
+#+BEGIN_NOTES
+Note: automate as much as possible so you can easily get fresh data.
+List the data you need and how much you need.
+Find and document where you can get that data.
+Check how much space it will take.
+Check legal obligations, and get authorization if necessary.
+Get access authorizations.
+Create a workspace (with enough storage space).
+Get the data.
+Convert the data to a format you can easily manipulate (without changing the data itself).
+Ensure sensitive information is deleted or protected (e.g., anonymized).
+Check the size and type of data (time series, sample, geographical, etc.).
+Sample a test set, put it aside, and never look at it (no data snooping!).
+#+END_NOTES
 ** Interesting data repositories
+:PROPERTIES:
+:CUSTOM_ID: data_repos
+:END:
 # :PROPERTIES:
 # :reveal_background: ./iris.jpg
 # :reveal_background_size: 5%
@@ -80,8 +159,140 @@ How do we measure performance?
 This is where you find the Iris dataset, but also forest fires in Portugal,
 heart disease predictions etc.
 #+END_NOTES
-* Discovery
-* Data Preparation
-* Model Selection
-* Fine-tuning
-* Presentation
+* Discovery and visualisation
+:PROPERTIES:
+:CUSTOM_ID: discovery
+:END:
+#+BEGIN_NOTES
+Note: try to get insights from a field expert for these steps.
+Create a copy of the data for exploration (sampling it down to a manageable size if necessary).
+Create a Jupyter notebook to keep a record of your data exploration.
+Study each attribute and its characteristics:
+Name
+Type (categorical, int/float, bounded/unbounded, text, structured, etc.)
+% of missing value
+Noisiness and type of noise (stochastic, outliers, rounding errors, etc.)
+Usefulness for the task
+Type of distribution (Gaussian, uniform, logarithmic, etc.)
+For supervised learning tasks, identify the target attribute(s).
+Visualize the data.
+Study the correlations between attributes.
+Study how you would solve the problem manually.
+Identify the promising transformations you may want to apply.
+Identify extra data that would be useful (go back to “Get the Data”).
+Document what you have learned.
+#+END_NOTES
+* Prepare your data for ML
+:PROPERTIES:
+:CUSTOM_ID: data_prep
+:END:
+#+BEGIN_NOTES
+
+Work on copies of the data (keep the original dataset intact).
+
+Write functions for all data transformations you apply, for five reasons:
+
+- So you can easily prepare the data the next time you get a fresh dataset
+- So you can apply these transformations in future projects
+- To clean and prepare the test set
+- To clean and prepare new data instances once your solution is live
+- To make it easy to treat your preparation choices as hyperparameters
+
+DATA CLEANING:
+Fix or remove outliers (optional).
+Fill in missing values (e.g., with zero, mean, median…) or drop their rows (or columns).
+
+FEATURE SELECTION (OPTIONAL):
+Drop the attributes that provide no useful information for the task.
+
+FEATURE ENGINEERING, WHERE APPROPRIATE:
+Discretize continuous features.
+Decompose features (e.g., categorical, date/time, etc.).
+Add promising transformations of features (e.g., log(x), sqrt(x), x2, etc.).
+Aggregate features into promising new features.
+
+FEATURE SCALING
+Standardize or normalize features.
+#+END_NOTES
+* Select a model
+:PROPERTIES:
+:CUSTOM_ID: model_selection
+:END:
+#+BEGIN_NOTES
+
+If the data is huge, you may want to sample smaller training sets so you can
+train many different models in a reasonable time (be aware that this penalizes
+complex models such as large neural nets or Random Forests).
+
+Once again, try to automate these steps as much as possible.
+
+Train many quick-and-dirty models from different categories (e.g., linear, naive Bayes, SVM, Random Forest, neural net, etc.) using standard parameters.
+
+Measure and compare their performance.
+For each model, use N-fold cross-validation and compute the mean and standard deviation of the performance measure on the N folds.
+
+Analyze the most significant variables for each algorithm.
+
+Analyze the types of errors the models make.
+What data would a human have used to avoid these errors?
+
+Perform a quick round of feature selection and engineering.
+
+Perform one or two more quick iterations of the five previous steps.
+
+Shortlist the top three to five most promising models, preferring models that
+make different types of errors.
+#+END_NOTES
+* Fine-tune your model
+:PROPERTIES:
+:CUSTOM_ID: model_fine_tuning
+:END:
+#+BEGIN_NOTES
+
+You will want to use as much data as possible for this step, especially as you
+move toward the end of fine-tuning.
+
+As always, automate what you can.
+
+Fine-tune the hyperparameters using cross-validation:
+- Treat your data transformation choices as hyperparameters, especially when you
+  are not sure about them (e.g., if you’re not sure whether to replace missing
+  values with zeros or with the median value, or to just drop the rows).
+- Unless there are very few hyperparameter values to explore, prefer random
+  search over grid search. If training is very long, you may prefer a Bayesian
+  optimization approach (e.g., using Gaussian process priors, as described by
+  Jasper Snoek et al.)
+
+Try Ensemble methods. Combining your best models will often produce better
+performance than running them individually.
+
+
+Once you are confident about your final model, measure its performance on the
+test set to estimate the generalization error.
+
+
+WARNING
+Don’t tweak your model after measuring the generalization error: you would just
+start overfitting the test set.
+#+END_NOTES
+* Present your solution
+:PROPERTIES:
+:CUSTOM_ID: solution
+:END:
+#+BEGIN_NOTES
+Document what you have done.
+
+Create a nice presentation.
+- Make sure you highlight the big picture first.
+
+Explain why your solution achieves the business objective.
+
+Don’t forget to present interesting points you noticed along the way.
+- Describe what worked and what did not.
+  - List your assumptions and your system’s limitations.
+
+Ensure your key findings are communicated through beautiful visualizations or
+easy-to-remember statements (e.g., “the median income is the number-one
+predictor of housing prices”).
+
+#+END_NOTES
