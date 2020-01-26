@@ -12,65 +12,47 @@
 #+Author: Harriet Sands
 #+Email: harriet.sands@ons.gov.uk
 
-* 
-    :PROPERTIES:
-    :CUSTOM_ID: intro_picture
-    :reveal_background: ./apple_hq_california.jpg
-    :reveal_background_size: 100%
-    :reveal_background_position: cover
-    :END:
-#+BEGIN_NOTES
-For the purposes of this exercise I am going to use California census data to
-build a model to predict house prices
-#+END_NOTES
 * Look at the big picture
 :PROPERTIES:
 :CUSTOM_ID: big_picture
 :END:
 ** 
 :PROPERTIES:
-:CUSTOM_ID: deng_ai
+:CUSTOM_ID: richters_predictor
 :END:
-#+REVEAL_HTML: <h3 style="text-transform: capitalize">DengAI</h>
+#+REVEAL_HTML: <h3 style="text-transform: capitalize">Richter's Predictor</h3>
 #+ATTR_HTML: :style border:none; box-shadow:none; max-width:50%
-[[./deng_ai.jpg]]
-** Predicting local epidemics
-Dengue fever is a mosquito-borne disease that occurs in tropical and
-sub-tropical parts of the world.
+[[./nepal_earthquake.jpeg]]
+#+ATTR_REVEAL: :frag (appear)
+Can you predict the level of damage to buildings caused by the 2015 Gorkha earthquake in Nepal?
+** Predicting earthquake damage
+:PROPERTIES:
+:CUSTOM_ID: earthquake
+:END:
+#+REVEAL_HTML: <iframe width="560" height="315" data-src="https://www.youtube.com/embed/WwIw1-voHKQ?" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+- April 25, 2015- a 7.8 Mw earthquake struck Nepal
+- Thousands of people died, and many buildings were destroyed or damaged
 #+BEGIN_NOTES
-In mild cases, symptoms are similar to the flu: fever, rash, and muscle and
-joint pain. In severe cases, dengue fever can cause severe bleeding, low blood
-pressure, and even death.
-Because it is carried by mosquitoes, the transmission dynamics of dengue are
-related to climate variables such as temperature and precipitation. Although the
-relationship to climate is complex, a growing number of scientists argue that
-climate change is likely to produce distributional shifts that will have
-significant public health implications worldwide.
-In recent years dengue fever has been spreading. Historically, the disease has
-been most prevalent in Southeast Asia and the Pacific islands. These days many
-of the nearly half billion cases per year are occurring in Latin America.
-Using environmental data collected by various U.S. Federal Government
-agencies—from the Centers for Disease Control and Prevention to the National
-Oceanic and Atmospheric Administration in the U.S. Department of Commerce—can
-you predict the number of dengue fever cases reported each week in San Juan,
-Puerto Rico and Iquitos, Peru?
-Your task is to predict the number of dengue cases each week (in each location)
-based on environmental variables describing changes in temperature,
-precipitation, vegetation, and more.
+Following the 7.8 Mw Gorkha Earthquake on April 25, 2015, Nepal carried out a
+massive household survey using mobile technology to assess building damage in
+the earthquake-affected districts.
+
+
 #+END_NOTES
 #+BEGIN_NOTES
-Define the objective in business terms.
-How will your solution be used?
-What are the current solutions/workarounds (if any)?
-How should you frame this problem (supervised/unsupervised, online/offline, etc.)?
-How should performance be measured?
-Is the performance measure aligned with the business objective?
-What would be the minimum performance needed to reach the business objective?
-What are comparable problems? Can you reuse experience or tools?
-Is human expertise available?
-How would you solve the problem manually?
-List the assumptions you (or others) have made so far.
-Verify assumptions if possible.
+- Define the objective in business terms.
+- How will your solution be used?
+- What are the current solutions/workarounds (if any)?
+- How should you frame this problem (supervised/unsupervised, online/offline,
+  etc.)?
+- How should performance be measured?
+- Is the performance measure aligned with the business objective?
+- What would be the minimum performance needed to reach the business objective?
+- What are comparable problems? Can you reuse experience or tools?
+- Is human expertise available?
+- How would you solve the problem manually?
+- List the assumptions you (or others) have made so far.
+- Verify assumptions if possible.
 #+END_NOTES
 
 ** A model is not the end goal
@@ -80,44 +62,87 @@ Verify assumptions if possible.
 #+ATTR_REVEAL: :frag (appear)
 - What is it you are trying to achieve?
   #+BEGIN_NOTES
-  how does your business expect to use and benefit from this model?
-  This is important because it will determine how you frame the roblem, what
-  algorithms you select, what performance meausre you will use to evaluate your
-  model, and how much effort you should spend tweaking it.
-  An understanding of the relationship between climate and dengue dynamics can
-  improve research initiatives and resource allocation to help fight
-  life-threatening pandemics.
+  - What exactly is the business objective?
+    - Building a model is probably not the end goal.
+    - How does the business expect to use and benefit from this model?
+  Knowing the objective is important because it
+  will determine how you frame the problem, which algorithms you will select,
+  which performance measure you will use to evaluate your model, and how much
+  effort you will spend tweaking it.
+
+  Although the primary goal of this survey was
+to identify beneficiaries eligible for government assistance for housing
+reconstruction, it also collected other useful socio-economic information. In
+addition to housing reconstruction, this data serves a wide range of uses and
+users e.g. researchers, newly formed local governments, and citizens at large.
+The purpose of this portal is to open this data to the public.
+  
   #+END_NOTES
 - What are the current solutions?
   #+BEGIN_NOTES
   understanding what the current solution looks like (if there is one) is
-  critical, as it fives you a reference performance
+  critical, as it gives you a reference performance.
+  Some early stage physics models, as well as widely held beliefs about how to
+  earthquake proof buildings, but this model can potentially go further- looking
+  at regional distribution, building usage etc.
    #+END_NOTES
 - How should we frame this solution?
   #+BEGIN_NOTES
   how should we frame this problem? supervised/unsupervised/reinforcement
   learning? classification/regression or something else?
-  answer- this is a typical supervised learning taks since you are given albeled
-  training examples. It is a typical regression task since you are asked to
-  predict a value. More specifically this is a multiple regression probem since
-  the model will use multiple freatures to make a prediction. It is also a
-  univariate regression problem since we are only trying to predict a single
-  value for each district
+  answer- We are predicting the level of damage from 1 to 3. The level of damage is an
+  ordinal variable meaning that ordering is important. This can be viewed as a
+  classification or an ordinal regression problem. (Ordinal regression is
+  sometimes described as an problem somewhere in between classification and
+  regression.)
    #+END_NOTES
 ** What does good mean?
 :PROPERTIES:
 :CUSTOM_ID: good
 :END:
-#+ATTR_REVEAL: :frag (appear)
-How do we measure performance?
- \begin{equation}
- RMSE = \sqrt{ \frac{1}{N}\sum_{i=1}^{N} (x_{i})^2 }
- \end{equation}
- # root reveal https://cdn.jsdelivr.net/npm/reveal.js@3/
+\begin{equation}
+F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
+\end{equation}
+** 
+:PROPERTIES:
+:CUSTOM_ID: good_explained
+:END:
+
+\begin{equation}
+\scriptsize \textsf{where}\\
+\scriptsize P_{micro}=\frac{\sum_{k=1}^{3}TP_{k}}{\sum_{k=1}^{3}(TP_{k}+FP_{k})},\; R_{micro}=\frac{\sum_{k=1}^{3}TP_{k}}{\sum_{k=1}^{3}(TP_{k}+FN_{k})}
+\end{equation}
+\begin{equation}
+\scriptsize \textsf{and }TP\textsf{ is True Positive, }FP\textsf{ is False Positive, }\\
+\scriptsize FN\textsf{ is False Negative, and }k\textsf{ represents each class in 1,2,3 }\
+\end{equation}
+# #+REVEAL_HTML: <p>$$\textnormal{and}$$ $$TP$$ is True Positive,$$FP$$ is False Positive,$$FN$$ is False Negative,and $$k$$ represents each class in 1,2,3</p>
+ #+BEGIN_NOTES
+ To measure the performance of our algorithms, we'll use the F1 score which
+ balances the precision and recall of a classifier. Traditionally, the F1 score
+ is used to evaluate performance on a binary classifier, but since we have three
+ possible labels we will use a variant called the micro averaged F1 score.
+ #+END_NOTES
+** Implementing in python
+:PROPERTIES:
+:CUSTOM_ID: good_in_python
+:END:
+#+REVEAL_HTML: <p>This is really easy with <code style="color:#b74d4d; background:whitesmoke">sklearn.metrics.f1_score</code> with the keyword argument <code style="color:#b74d4d; background:whitesmoke">average='micro'</code></p>
 * Get the data
 :PROPERTIES:
 :CUSTOM_ID: get_the_data
 :END:
+#+BEGIN_NOTES
+In typical environments your data would be available in a relational database
+(or some other common data store) and spread across multiple
+tables/documents/files. To access it, you would first need to get your
+credentials and access authorizations10 and familiarize yourself with the data
+schema. In this project, however, things are much simpler.
+This survey is one of the largest post-disaster datasets ever collected,
+containing valuable information on earthquake impacts, household conditions, and
+socio-economic-demographic statistics.
+
+#+END_NOTES
 #+BEGIN_NOTES
 Note: automate as much as possible so you can easily get fresh data.
 List the data you need and how much you need.
@@ -136,12 +161,6 @@ Sample a test set, put it aside, and never look at it (no data snooping!).
 :PROPERTIES:
 :CUSTOM_ID: data_repos
 :END:
-# :PROPERTIES:
-# :reveal_background: ./iris.jpg
-# :reveal_background_size: 5%
-# :reveal_background_position: left 30% bottom 45%
-# :reveal_background_trans: slide
-# :END:
 #+BEGIN_NOTES
   Enter speaker notes here.
   - With bullet points
@@ -154,7 +173,7 @@ Sample a test set, put it aside, and never look at it (no data snooping!).
 - [[https://archive.ics.uci.edu/ml/index.php][UCI Repository]]
 - [[https://www.kaggle.com/datasets][Kaggle]]
 - [[https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research][Wikipedia]]
-  
+- [[https://www.drivendata.org/][Driven Data]] 
 #+BEGIN_NOTES
 This is where you find the Iris dataset, but also forest fires in Portugal,
 heart disease predictions etc.
@@ -163,6 +182,11 @@ heart disease predictions etc.
 :PROPERTIES:
 :CUSTOM_ID: discovery
 :END:
+demo
+#+BEGIN_NOTES
+
+
+#+END_NOTES
 #+BEGIN_NOTES
 Note: try to get insights from a field expert for these steps.
 Create a copy of the data for exploration (sampling it down to a manageable size if necessary).
@@ -182,10 +206,12 @@ Identify the promising transformations you may want to apply.
 Identify extra data that would be useful (go back to “Get the Data”).
 Document what you have learned.
 #+END_NOTES
-* Prepare your data for ML
+* Next steps:
 :PROPERTIES:
-:CUSTOM_ID: data_prep
+:CUSTOM_ID: next_steps
 :END:
+
+#+REVEAL_HTML:<ul><li>Prepare your data for ML</li><li>Select a model</li><li>Fine-tune your model</li><li>Present your solution</li><li>Launch, monitor and maintain your system</li></ul>
 #+BEGIN_NOTES
 
 Work on copies of the data (keep the original dataset intact).
@@ -214,10 +240,6 @@ Aggregate features into promising new features.
 FEATURE SCALING
 Standardize or normalize features.
 #+END_NOTES
-* Select a model
-:PROPERTIES:
-:CUSTOM_ID: model_selection
-:END:
 #+BEGIN_NOTES
 
 If the data is huge, you may want to sample smaller training sets so you can
@@ -243,10 +265,6 @@ Perform one or two more quick iterations of the five previous steps.
 Shortlist the top three to five most promising models, preferring models that
 make different types of errors.
 #+END_NOTES
-* Fine-tune your model
-:PROPERTIES:
-:CUSTOM_ID: model_fine_tuning
-:END:
 #+BEGIN_NOTES
 
 You will want to use as much data as possible for this step, especially as you
@@ -275,10 +293,6 @@ WARNING
 Don’t tweak your model after measuring the generalization error: you would just
 start overfitting the test set.
 #+END_NOTES
-* Present your solution
-:PROPERTIES:
-:CUSTOM_ID: solution
-:END:
 #+BEGIN_NOTES
 Document what you have done.
 
