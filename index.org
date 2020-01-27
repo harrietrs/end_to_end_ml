@@ -12,6 +12,11 @@
 #+Author: Harriet Sands
 #+Email: harriet.sands@ons.gov.uk
 
+* Credit to Aurelien Geron
+:PROPERTIES:
+:CUSTOM_ID: credit
+:END:
+#+REVEAL_HTML: <p>This presentation borrows heavily from Chapter 2 of <i>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</i>/</p>
 * Look at the big picture
 :PROPERTIES:
 :CUSTOM_ID: big_picture
