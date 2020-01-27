@@ -1,7 +1,6 @@
 #+STARTUP: hideblocks
 #+OPTIONS: num:nil toc:nil author:nil timestamp:nil reveal_history:t
 #+REVEAL_THEME: white
-#+REVEAL_ROOT: ../../../reveal.js
 #+REVEAL_PLUGINS: (highlight notes)
 #+REVEAL_TITLE_SLIDE: <h1>%t</h1><h4>%s</h4><p>%e</p>
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./dsc_logo.png
@@ -16,7 +15,7 @@
 :PROPERTIES:
 :CUSTOM_ID: credit
 :END:
-#+REVEAL_HTML: <p>This presentation borrows heavily from Chapter 2 of <i>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</i>/</p>
+#+REVEAL_HTML: <p>This presentation borrows heavily from Chapter 2 of <i>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</i></p>
 * Look at the big picture
 :PROPERTIES:
 :CUSTOM_ID: big_picture
@@ -171,10 +170,8 @@ Sample a test set, put it aside, and never look at it (no data snooping!).
   - With bullet points
     - If necessary
 #+END_NOTES
-#+ATTR_ORG: :width 150 border:none box-shadow:none
+#+ATTR_HTML: :style width:150; border:none; box-shadow:none; max-width:50%
 [[./iris.jpg]]
-[[./forest_fires_portugal.jpg]]
-[[./heart_disease.jpg]]
 - [[https://archive.ics.uci.edu/ml/index.php][UCI Repository]]
 - [[https://www.kaggle.com/datasets][Kaggle]]
 - [[https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research][Wikipedia]]

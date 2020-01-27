@@ -7,10 +7,10 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="../../../reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3/css/reveal.css"/>
 
-<link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme"/>
-<link rel="stylesheet" href="../../../reveal.js/lib/css/zenburn.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3/css/theme/white.css" id="theme"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3/lib/css/zenburn.css"/>
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
@@ -18,7 +18,7 @@
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = '../../../reveal.js/css/print/pdf.css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     }
 </script>
@@ -34,7 +34,7 @@
 <section>
 <section id="slide-credit" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h2 id="credit">Credit to Aurelien Geron</h2>
-<p>This presentation borrows heavily from Chapter 2 of <i>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</i>/</p>
+<p>This presentation borrows heavily from Chapter 2 of <i>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</i></p>
 </section>
 </section>
 <section>
@@ -245,11 +245,11 @@ Enter speaker notes here.
 </ul>
 
 </aside>
-<p>
-<img src="./iris.jpg" alt="iris.jpg" />
-<img src="./forest_fires_portugal.jpg" alt="forest_fires_portugal.jpg" />
-<img src="./heart_disease.jpg" alt="heart_disease.jpg" />
+
+<div class="figure">
+<p><img src="./iris.jpg" alt="iris.jpg" style="width:150; border:none; box-shadow:none; max-width:50%" />
 </p>
+</div>
 <ul>
 <li><a href="https://archive.ics.uci.edu/ml/index.php">UCI Repository</a></li>
 <li><a href="https://www.kaggle.com/datasets">Kaggle</a></li>
@@ -473,8 +473,8 @@ predictor of housing prices”).
 </section>
 </div>
 </div>
-<script src="../../../reveal.js/lib/js/head.min.js"></script>
-<script src="../../../reveal.js/js/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3/js/reveal.js"></script>
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
@@ -500,8 +500,8 @@ transitionSpeed: 'default',
 
 // Optional libraries used to extend reveal.js
 dependencies: [
- { src: '../../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
- { src: '../../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
 
 });
 </script>
