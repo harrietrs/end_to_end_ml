@@ -40,23 +40,8 @@ Can you predict the level of damage to buildings caused by the 2015 Gorkha earth
 Following the 7.8 Mw Gorkha Earthquake on April 25, 2015, Nepal carried out a
 massive household survey using mobile technology to assess building damage in
 the earthquake-affected districts.
-
-
-#+END_NOTES
-#+BEGIN_NOTES
-- Define the objective in business terms.
-- How will your solution be used?
-- What are the current solutions/workarounds (if any)?
-- How should you frame this problem (supervised/unsupervised, online/offline,
-  etc.)?
-- How should performance be measured?
-- Is the performance measure aligned with the business objective?
-- What would be the minimum performance needed to reach the business objective?
 - What are comparable problems? Can you reuse experience or tools?
 - Is human expertise available?
-- How would you solve the problem manually?
-- List the assumptions you (or others) have made so far.
-- Verify assumptions if possible.
 #+END_NOTES
 
 ** A model is not the end goal
@@ -68,8 +53,9 @@ the earthquake-affected districts.
   #+BEGIN_NOTES
   - What exactly is the business objective?
     - Building a model is probably not the end goal.
-    - How does the business expect to use and benefit from this model?
-  Knowing the objective is important because it
+    - How do you expect to use and benefit from this model?
+
+Knowing the objective is important because it
   will determine how you frame the problem, which algorithms you will select,
   which performance measure you will use to evaluate your model, and how much
   effort you will spend tweaking it.
@@ -79,12 +65,11 @@ to identify beneficiaries eligible for government assistance for housing
 reconstruction, it also collected other useful socio-economic information. In
 addition to housing reconstruction, this data serves a wide range of uses and
 users e.g. researchers, newly formed local governments, and citizens at large.
-The purpose of this portal is to open this data to the public.
-  
+
   #+END_NOTES
 - What are the current solutions?
   #+BEGIN_NOTES
-  understanding what the current solution looks like (if there is one) is
+  Understanding what the current solution looks like (if there is one) is
   critical, as it gives you a reference performance.
   Some early stage physics models, as well as widely held beliefs about how to
   earthquake proof buildings, but this model can potentially go further- looking
@@ -92,21 +77,36 @@ The purpose of this portal is to open this data to the public.
    #+END_NOTES
 - How should we frame this solution?
   #+BEGIN_NOTES
-  how should we frame this problem? supervised/unsupervised/reinforcement
-  learning? classification/regression or something else?
-  answer- We are predicting the level of damage from 1 to 3. The level of damage is an
-  ordinal variable meaning that ordering is important. This can be viewed as a
+  How should we frame this problem?
+
+  We are predicting the level of damage from 1 to 3. The level of damage is an
+  ordinal variable meaning that ordering is important.
+
+  This can be viewed as a
   classification or an ordinal regression problem. (Ordinal regression is
   sometimes described as an problem somewhere in between classification and
   regression.)
    #+END_NOTES
-** What does good mean?
+** What does good look like?
 :PROPERTIES:
 :CUSTOM_ID: good
 :END:
 \begin{equation}
 F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 \end{equation}
+#+BEGIN_NOTES
+Driven data, in order to have a leaderboard, sets a specific performance
+measure.
+In this case, it uses micro-averaged f1 score.
+
+To measure the performance of our algorithms, we'll use the F1 score which
+ balances the precision and recall of a classifier. Traditionally, the F1 score
+ is used to evaluate performance on a binary classifier, but since we have three
+ possible labels we will use a variant called the micro averaged F1 score.
+
+- What would be the minimum performance needed to reach the business objective?
+  refer to leaderboard?
+#+END_NOTES
 ** 
 :PROPERTIES:
 :CUSTOM_ID: good_explained
@@ -122,20 +122,29 @@ F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 \end{equation}
 # #+REVEAL_HTML: <p>$$\textnormal{and}$$ $$TP$$ is True Positive,$$FP$$ is False Positive,$$FN$$ is False Negative,and $$k$$ represents each class in 1,2,3</p>
  #+BEGIN_NOTES
- To measure the performance of our algorithms, we'll use the F1 score which
- balances the precision and recall of a classifier. Traditionally, the F1 score
- is used to evaluate performance on a binary classifier, but since we have three
- possible labels we will use a variant called the micro averaged F1 score.
+ When you have a small positive class, then F1 score makes more sense than
+roc-auc, which generally gives a good indicator of performance.
+- In Micro-average method, you sum up the individual true positives, false positives, and false negatives of the system for different sets and then apply them to get the statistics.
+- In Macro-average, you take the average of the precision and recall of the system on different sets
+Micro-average is preferable if there is a class imbalance problem.
  #+END_NOTES
 ** Implementing in python
 :PROPERTIES:
 :CUSTOM_ID: good_in_python
 :END:
 #+REVEAL_HTML: <p>This is really easy with <code style="color:#b74d4d; background:whitesmoke">sklearn.metrics.f1_score</code> with the keyword argument <code style="color:#b74d4d; background:whitesmoke">average='micro'</code></p>
+** More detail on performance measures
+:PROPERTIES:
+:CUSTOM_ID: performance_links
+:END:
+[[https://medium.com/usf-msds/choosing-the-right-metric-for-machine-learning-models-part-1-a99d7d7414e4][Choosing the right regression metric]]
+
+[[https://medium.com/usf-msds/choosing-the-right-metric-for-evaluating-machine-learning-models-part-2-86d5649a5428][Choosing the right classification metric]]
 * Get the data
 :PROPERTIES:
 :CUSTOM_ID: get_the_data
 :END:
+[[https://eq2015.npc.gov.np/#/download][2015 Nepal Earthquake- Open Data Portal]]
 #+BEGIN_NOTES
 In typical environments your data would be available in a relational database
 (or some other common data store) and spread across multiple
@@ -165,6 +174,7 @@ Sample a test set, put it aside, and never look at it (no data snooping!).
 :PROPERTIES:
 :CUSTOM_ID: data_repos
 :END:
+# https://cdn.jsdelivr.net/npm/reveal.js@3
 #+BEGIN_NOTES
   Enter speaker notes here.
   - With bullet points
@@ -247,7 +257,7 @@ Fine-tune the hyperparameters using cross-validation:
   are not sure about them (e.g., if you’re not sure whether to replace missing
   values with zeros or with the median value, or to just drop the rows).
 - Unless there are very few hyperparameter values to explore, prefer random
-  search over grid search.
+  search over grid search. 
 
 Try Ensemble methods. Combining your best models will often produce better
 performance than running them individually.

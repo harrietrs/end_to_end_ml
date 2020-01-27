@@ -67,23 +67,9 @@ Following the 7.8 Mw Gorkha Earthquake on April 25, 2015, Nepal carried out a
 massive household survey using mobile technology to assess building damage in
 the earthquake-affected districts.
 </p>
-
-</aside>
-<aside class="notes">
 <ul>
-<li>Define the objective in business terms.</li>
-<li>How will your solution be used?</li>
-<li>What are the current solutions/workarounds (if any)?</li>
-<li>How should you frame this problem (supervised/unsupervised, online/offline,
-etc.)?</li>
-<li>How should performance be measured?</li>
-<li>Is the performance measure aligned with the business objective?</li>
-<li>What would be the minimum performance needed to reach the business objective?</li>
 <li>What are comparable problems? Can you reuse experience or tools?</li>
 <li>Is human expertise available?</li>
-<li>How would you solve the problem manually?</li>
-<li>List the assumptions you (or others) have made so far.</li>
-<li>Verify assumptions if possible.</li>
 
 </ul>
 
@@ -101,16 +87,17 @@ What is it you are trying to achieve?
 <li>What exactly is the business objective?
 <ul>
 <li>Building a model is probably not the end goal.</li>
-<li>How does the business expect to use and benefit from this model?</li>
+<li>How do you expect to use and benefit from this model?</li>
 
 </ul></li>
 
 </ul>
+
 <p>
 Knowing the objective is important because it
-will determine how you frame the problem, which algorithms you will select,
-which performance measure you will use to evaluate your model, and how much
-effort you will spend tweaking it.
+  will determine how you frame the problem, which algorithms you will select,
+  which performance measure you will use to evaluate your model, and how much
+  effort you will spend tweaking it.
 </p>
 
 <p>
@@ -119,7 +106,6 @@ to identify beneficiaries eligible for government assistance for housing
 reconstruction, it also collected other useful socio-economic information. In
 addition to housing reconstruction, this data serves a wide range of uses and
 users e.g. researchers, newly formed local governments, and citizens at large.
-The purpose of this portal is to open this data to the public.
 </p>
 
 </aside></li>
@@ -128,7 +114,7 @@ What are the current solutions?
 </p>
 <aside class="notes">
 <p>
-understanding what the current solution looks like (if there is one) is
+Understanding what the current solution looks like (if there is one) is
 critical, as it gives you a reference performance.
 Some early stage physics models, as well as widely held beliefs about how to
 earthquake proof buildings, but this model can potentially go further- looking
@@ -141,10 +127,16 @@ How should we frame this solution?
 </p>
 <aside class="notes">
 <p>
-how should we frame this problem? supervised/unsupervised/reinforcement
-learning? classification/regression or something else?
-answer- We are predicting the level of damage from 1 to 3. The level of damage is an
-ordinal variable meaning that ordering is important. This can be viewed as a
+How should we frame this problem?
+</p>
+
+<p>
+We are predicting the level of damage from 1 to 3. The level of damage is an
+ordinal variable meaning that ordering is important.
+</p>
+
+<p>
+This can be viewed as a
 classification or an ordinal regression problem. (Ordinal regression is
 sometimes described as an problem somewhere in between classification and
 regression.)
@@ -155,13 +147,34 @@ regression.)
 </ul>
 </section>
 <section id="slide-good" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
-<h3 id="good">What does good mean?</h3>
+<h3 id="good">What does good look like?</h3>
 <div>
 \begin{equation}
 F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 \end{equation}
 
 </div>
+<aside class="notes">
+<p>
+Driven data, in order to have a leaderboard, sets a specific performance
+measure.
+In this case, it uses micro-averaged f1 score.
+</p>
+
+<p>
+To measure the performance of our algorithms, we&rsquo;ll use the F1 score which
+ balances the precision and recall of a classifier. Traditionally, the F1 score
+ is used to evaluate performance on a binary classifier, but since we have three
+ possible labels we will use a variant called the micro averaged F1 score.
+</p>
+
+<ul>
+<li>What would be the minimum performance needed to reach the business objective?
+refer to leaderboard?</li>
+
+</ul>
+
+</aside>
 </section>
 <section id="slide-good_explained" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h3 id="good_explained"></h3>
@@ -182,10 +195,16 @@ F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 
 <aside class="notes">
 <p>
-To measure the performance of our algorithms, we&rsquo;ll use the F1 score which
-balances the precision and recall of a classifier. Traditionally, the F1 score
-is used to evaluate performance on a binary classifier, but since we have three
-possible labels we will use a variant called the micro averaged F1 score.
+ When you have a small positive class, then F1 score makes more sense than
+roc-auc, which generally gives a good indicator of performance.
+</p>
+<ul>
+<li>In Micro-average method, you sum up the individual true positives, false positives, and false negatives of the system for different sets and then apply them to get the statistics.</li>
+<li>In Macro-average, you take the average of the precision and recall of the system on different sets</li>
+
+</ul>
+<p>
+Micro-average is preferable if there is a class imbalance problem.
 </p>
 
 </aside>
@@ -194,10 +213,23 @@ possible labels we will use a variant called the micro averaged F1 score.
 <h3 id="good_in_python">Implementing in python</h3>
 <p>This is really easy with <code style="color:#b74d4d; background:whitesmoke">sklearn.metrics.f1_score</code> with the keyword argument <code style="color:#b74d4d; background:whitesmoke">average='micro'</code></p>
 </section>
+<section id="slide-performance_links" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<h3 id="performance_links">More detail on performance measures</h3>
+<p>
+<a href="https://medium.com/usf-msds/choosing-the-right-metric-for-machine-learning-models-part-1-a99d7d7414e4">Choosing the right regression metric</a>
+</p>
+
+<p>
+<a href="https://medium.com/usf-msds/choosing-the-right-metric-for-evaluating-machine-learning-models-part-2-86d5649a5428">Choosing the right classification metric</a>
+</p>
+</section>
 </section>
 <section>
 <section id="slide-get_the_data" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h2 id="get_the_data">Get the data</h2>
+<p>
+<a href="https://eq2015.npc.gov.np/#/download">2015 Nepal Earthquake- Open Data Portal</a>
+</p>
 <aside class="notes">
 <p>
 In typical environments your data would be available in a relational database
