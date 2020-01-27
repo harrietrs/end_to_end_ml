@@ -3,7 +3,7 @@
 #+REVEAL_THEME: white
 #+REVEAL_PLUGINS: (highlight notes)
 #+REVEAL_TITLE_SLIDE: <h1>%t</h1><h4>%s</h4><p>%e</p>
-#+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./dsc_logo.png
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./slide_images/dsc_logo.png
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND_SIZE: 15%
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND_POSITION: left 10px bottom 10px
 #+TITLE: End-to-End Machine Learning
@@ -26,7 +26,7 @@
 :END:
 #+REVEAL_HTML: <h3 style="text-transform: capitalize">Richter's Predictor</h3>
 #+ATTR_HTML: :style border:none; box-shadow:none; max-width:50%
-[[./nepal_earthquake.jpeg]]
+[[./slide_images/nepal_earthquake.jpeg]]
 #+ATTR_REVEAL: :frag (appear)
 Can you predict the level of damage to buildings caused by the 2015 Gorkha earthquake in Nepal?
 ** Predicting earthquake damage
@@ -181,7 +181,7 @@ Sample a test set, put it aside, and never look at it (no data snooping!).
     - If necessary
 #+END_NOTES
 #+ATTR_HTML: :style width:150; border:none; box-shadow:none; max-width:50%
-[[./iris.jpg]]
+[[./slide_images/iris.jpg]]
 - [[https://archive.ics.uci.edu/ml/index.php][UCI Repository]]
 - [[https://www.kaggle.com/datasets][Kaggle]]
 - [[https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research][Wikipedia]]
