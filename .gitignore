@@ -1,0 +1,3 @@
+notebooks/my_model.pkl
+*.pkl
+*.DS_Store
