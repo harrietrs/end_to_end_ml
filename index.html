@@ -7,10 +7,10 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="../../../reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3/css/reveal.css"/>
 
-<link rel="stylesheet" href="../../../reveal.js/css/theme/white.css" id="theme"/>
-<link rel="stylesheet" href="../../../reveal.js/lib/css/zenburn.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3/css/theme/white.css" id="theme"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3/lib/css/zenburn.css"/>
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
@@ -18,7 +18,7 @@
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = '../../../reveal.js/css/print/pdf.css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     }
 </script>
@@ -32,22 +32,28 @@
 </section>
 
 <section>
-<section id="slide-big_picture" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-credit" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<h2 id="credit">Credit to Aurelien Geron</h2>
+<p>This presentation borrows heavily from Chapter 2 of <i>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</i></p>
+</section>
+</section>
+<section>
+<section id="slide-big_picture" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h2 id="big_picture">Look at the big picture</h2>
 </section>
-<section id="slide-richters_predictor" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-richters_predictor" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h3 id="richters_predictor"></h3>
 <h3 style="text-transform: capitalize">Richter's Predictor</h3>
 
 <div class="figure">
-<p><img src="./nepal_earthquake.jpeg" alt="nepal_earthquake.jpeg" style="border:none; box-shadow:none; max-width:50%" />
+<p><img src="./slide_images/nepal_earthquake.jpeg" alt="nepal_earthquake.jpeg" style="border:none; box-shadow:none; max-width:50%" />
 </p>
 </div>
 <p class="fragment (appear)">
 Can you predict the level of damage to buildings caused by the 2015 Gorkha earthquake in Nepal?
 </p>
 </section>
-<section id="slide-earthquake" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-earthquake" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h3 id="earthquake">Predicting earthquake damage</h3>
 <iframe width="560" height="315" data-src="https://www.youtube.com/embed/WwIw1-voHKQ?" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <ul>
@@ -61,30 +67,16 @@ Following the 7.8 Mw Gorkha Earthquake on April 25, 2015, Nepal carried out a
 massive household survey using mobile technology to assess building damage in
 the earthquake-affected districts.
 </p>
-
-</aside>
-<aside class="notes">
 <ul>
-<li>Define the objective in business terms.</li>
-<li>How will your solution be used?</li>
-<li>What are the current solutions/workarounds (if any)?</li>
-<li>How should you frame this problem (supervised/unsupervised, online/offline,
-etc.)?</li>
-<li>How should performance be measured?</li>
-<li>Is the performance measure aligned with the business objective?</li>
-<li>What would be the minimum performance needed to reach the business objective?</li>
 <li>What are comparable problems? Can you reuse experience or tools?</li>
 <li>Is human expertise available?</li>
-<li>How would you solve the problem manually?</li>
-<li>List the assumptions you (or others) have made so far.</li>
-<li>Verify assumptions if possible.</li>
 
 </ul>
 
 </aside>
 
 </section>
-<section id="slide-think_outside_the_model" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-think_outside_the_model" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h3 id="think_outside_the_model">A model is not the end goal</h3>
 <ul>
 <li class="fragment appear"><p>
@@ -95,16 +87,17 @@ What is it you are trying to achieve?
 <li>What exactly is the business objective?
 <ul>
 <li>Building a model is probably not the end goal.</li>
-<li>How does the business expect to use and benefit from this model?</li>
+<li>How do you expect to use and benefit from this model?</li>
 
 </ul></li>
 
 </ul>
+
 <p>
 Knowing the objective is important because it
-will determine how you frame the problem, which algorithms you will select,
-which performance measure you will use to evaluate your model, and how much
-effort you will spend tweaking it.
+  will determine how you frame the problem, which algorithms you will select,
+  which performance measure you will use to evaluate your model, and how much
+  effort you will spend tweaking it.
 </p>
 
 <p>
@@ -113,7 +106,6 @@ to identify beneficiaries eligible for government assistance for housing
 reconstruction, it also collected other useful socio-economic information. In
 addition to housing reconstruction, this data serves a wide range of uses and
 users e.g. researchers, newly formed local governments, and citizens at large.
-The purpose of this portal is to open this data to the public.
 </p>
 
 </aside></li>
@@ -122,7 +114,7 @@ What are the current solutions?
 </p>
 <aside class="notes">
 <p>
-understanding what the current solution looks like (if there is one) is
+Understanding what the current solution looks like (if there is one) is
 critical, as it gives you a reference performance.
 Some early stage physics models, as well as widely held beliefs about how to
 earthquake proof buildings, but this model can potentially go further- looking
@@ -135,10 +127,16 @@ How should we frame this solution?
 </p>
 <aside class="notes">
 <p>
-how should we frame this problem? supervised/unsupervised/reinforcement
-learning? classification/regression or something else?
-answer- We are predicting the level of damage from 1 to 3. The level of damage is an
-ordinal variable meaning that ordering is important. This can be viewed as a
+How should we frame this problem?
+</p>
+
+<p>
+We are predicting the level of damage from 1 to 3. The level of damage is an
+ordinal variable meaning that ordering is important.
+</p>
+
+<p>
+This can be viewed as a
 classification or an ordinal regression problem. (Ordinal regression is
 sometimes described as an problem somewhere in between classification and
 regression.)
@@ -148,16 +146,37 @@ regression.)
 
 </ul>
 </section>
-<section id="slide-good" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
-<h3 id="good">What does good mean?</h3>
+<section id="slide-good" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<h3 id="good">What does good look like?</h3>
 <div>
 \begin{equation}
 F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 \end{equation}
 
 </div>
+<aside class="notes">
+<p>
+Driven data, in order to have a leaderboard, sets a specific performance
+measure.
+In this case, it uses micro-averaged f1 score.
+</p>
+
+<p>
+To measure the performance of our algorithms, we&rsquo;ll use the F1 score which
+ balances the precision and recall of a classifier. Traditionally, the F1 score
+ is used to evaluate performance on a binary classifier, but since we have three
+ possible labels we will use a variant called the micro averaged F1 score.
+</p>
+
+<ul>
+<li>What would be the minimum performance needed to reach the business objective?
+refer to leaderboard?</li>
+
+</ul>
+
+</aside>
 </section>
-<section id="slide-good_explained" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-good_explained" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h3 id="good_explained"></h3>
 <div>
 \begin{equation}
@@ -176,22 +195,41 @@ F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 
 <aside class="notes">
 <p>
-To measure the performance of our algorithms, we&rsquo;ll use the F1 score which
-balances the precision and recall of a classifier. Traditionally, the F1 score
-is used to evaluate performance on a binary classifier, but since we have three
-possible labels we will use a variant called the micro averaged F1 score.
+ When you have a small positive class, then F1 score makes more sense than
+roc-auc, which generally gives a good indicator of performance.
+</p>
+<ul>
+<li>In Micro-average method, you sum up the individual true positives, false positives, and false negatives of the system for different sets and then apply them to get the statistics.</li>
+<li>In Macro-average, you take the average of the precision and recall of the system on different sets</li>
+
+</ul>
+<p>
+Micro-average is preferable if there is a class imbalance problem.
 </p>
 
 </aside>
 </section>
-<section id="slide-good_in_python" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-good_in_python" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h3 id="good_in_python">Implementing in python</h3>
 <p>This is really easy with <code style="color:#b74d4d; background:whitesmoke">sklearn.metrics.f1_score</code> with the keyword argument <code style="color:#b74d4d; background:whitesmoke">average='micro'</code></p>
 </section>
+<section id="slide-performance_links" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<h3 id="performance_links">More detail on performance measures</h3>
+<p>
+<a href="https://medium.com/usf-msds/choosing-the-right-metric-for-machine-learning-models-part-1-a99d7d7414e4">Choosing the right regression metric</a>
+</p>
+
+<p>
+<a href="https://medium.com/usf-msds/choosing-the-right-metric-for-evaluating-machine-learning-models-part-2-86d5649a5428">Choosing the right classification metric</a>
+</p>
+</section>
 </section>
 <section>
-<section id="slide-get_the_data" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-get_the_data" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h2 id="get_the_data">Get the data</h2>
+<p>
+<a href="https://eq2015.npc.gov.np/#/download">2015 Nepal Earthquake- Open Data Portal</a>
+</p>
 <aside class="notes">
 <p>
 In typical environments your data would be available in a relational database
@@ -223,7 +261,7 @@ Sample a test set, put it aside, and never look at it (no data snooping!).
 
 </aside>
 </section>
-<section id="slide-data_repos" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-data_repos" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h3 id="data_repos">Interesting data repositories</h3>
 <aside class="notes">
 <p>
@@ -239,11 +277,11 @@ Enter speaker notes here.
 </ul>
 
 </aside>
-<p>
-<img src="./iris.jpg" alt="iris.jpg" />
-<img src="./forest_fires_portugal.jpg" alt="forest_fires_portugal.jpg" />
-<img src="./heart_disease.jpg" alt="heart_disease.jpg" />
+
+<div class="figure">
+<p><img src="./slide_images/iris.jpg" alt="iris.jpg" style="width:150; border:none; box-shadow:none; max-width:50%" />
 </p>
+</div>
 <ul>
 <li><a href="https://archive.ics.uci.edu/ml/index.php">UCI Repository</a></li>
 <li><a href="https://www.kaggle.com/datasets">Kaggle</a></li>
@@ -261,40 +299,29 @@ heart disease predictions etc.
 </section>
 </section>
 <section>
-<section id="slide-next_steps" data-background="./dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
+<section id="slide-next_steps" data-background="./slide_images/dsc_logo.png" data-background-size="15%" data-background-position="left 10px bottom 10px">
 <h2 id="next_steps">Next steps:</h2>
 <ul><li>Discovery and visualisation</li><li>Prepare your data for ML</li><li>Select a model</li><li>Fine-tune your model</li><li>Present your solution</li><li>Launch, monitor and maintain your system</li></ul>
 <aside class="notes">
-<p>
-Note: try to get insights from a field expert for these steps.
-Create a copy of the data for exploration (sampling it down to a manageable size if necessary).
-Create a Jupyter notebook to keep a record of your data exploration.
-Study each attribute and its characteristics:
-Name
-Type (categorical, int/float, bounded/unbounded, text, structured, etc.)
-% of missing value
-Noisiness and type of noise (stochastic, outliers, rounding errors, etc.)
-Usefulness for the task
-Type of distribution (Gaussian, uniform, logarithmic, etc.)
-For supervised learning tasks, identify the target attribute(s).
-Visualize the data.
-Study the correlations between attributes.
-Study how you would solve the problem manually.
-Identify the promising transformations you may want to apply.
-Identify extra data that would be useful (go back to “Get the Data”).
-Document what you have learned.
-</p>
+<ol>
+<li>Discovery
+<ul>
+<li>Get insights from a field expert for exploratory analysis</li>
+<li>Study each attribute and its characteristics:
+<ul>
+<li>Type (categorical, int/float, bounded/unbounded, text, structured, etc.)</li>
+<li>% of missing value</li>
+<li>Noisiness and type of noise (stochastic, outliers, rounding errors, etc.)</li>
+<li>Type of distribution (Gaussian, uniform, logarithmic, etc.)</li>
+<li>Study the correlations between attributes.</li>
+<li>Identify extra data that would be useful</li>
 
-</aside>
-<aside class="notes">
-<p>
+</ul></li>
 
-</p>
+</ul></li>
+<li>Prepare your data</li>
 
-<p>
-Work on copies of the data (keep the original dataset intact).
-</p>
-
+</ol>
 <p>
 Write functions for all data transformations you apply, for five reasons:
 </p>
@@ -303,49 +330,52 @@ Write functions for all data transformations you apply, for five reasons:
 <li>So you can easily prepare the data the next time you get a fresh dataset</li>
 <li>So you can apply these transformations in future projects</li>
 <li>To clean and prepare the test set</li>
-<li>To clean and prepare new data instances once your solution is live</li>
 <li>To make it easy to treat your preparation choices as hyperparameters</li>
 
 </ul>
 
 <p>
 DATA CLEANING:
-Fix or remove outliers (optional).
-Fill in missing values (e.g., with zero, mean, median…) or drop their rows (or columns).
 </p>
+<ul>
+<li>Fix or remove outliers (optional).</li>
+<li>Fill in missing values (e.g., with zero, mean, median…) or drop their rows (or columns).</li>
+
+</ul>
 
 <p>
 FEATURE SELECTION (OPTIONAL):
-Drop the attributes that provide no useful information for the task.
 </p>
+<ul>
+<li>Drop the attributes that provide no useful information for the task.</li>
+
+</ul>
 
 <p>
 FEATURE ENGINEERING, WHERE APPROPRIATE:
-Discretize continuous features.
-Decompose features (e.g., categorical, date/time, etc.).
-Add promising transformations of features (e.g., log(x), sqrt(x), x2, etc.).
-Aggregate features into promising new features.
 </p>
+<ul>
+<li>Discretize continuous features.</li>
+<li>Decompose features (e.g., categorical, date/time, etc.).</li>
+<li>Add promising transformations of features (e.g., log(x), sqrt(x), x2, etc.).</li>
+<li>Aggregate features into promising new features.</li>
+
+</ul>
 
 <p>
 FEATURE SCALING
-Standardize or normalize features.
 </p>
+<ul>
+<li>Standardize or normalize features.</li>
 
-</aside>
-<aside class="notes">
-<p>
+<li>Select a model</li>
 
-</p>
+</ul>
 
 <p>
 If the data is huge, you may want to sample smaller training sets so you can
 train many different models in a reasonable time (be aware that this penalizes
 complex models such as large neural nets or Random Forests).
-</p>
-
-<p>
-Once again, try to automate these steps as much as possible.
 </p>
 
 <p>
@@ -362,29 +392,14 @@ Analyze the most significant variables for each algorithm.
 </p>
 
 <p>
-Analyze the types of errors the models make.
-What data would a human have used to avoid these errors?
-</p>
-
-<p>
-Perform a quick round of feature selection and engineering.
-</p>
-
-<p>
-Perform one or two more quick iterations of the five previous steps.
-</p>
-
-<p>
 Shortlist the top three to five most promising models, preferring models that
 make different types of errors.
 </p>
 
-</aside>
-<aside class="notes">
-<p>
+<ol>
+<li>Fine-tune your model</li>
 
-</p>
-
+</ol>
 <p>
 You will want to use as much data as possible for this step, especially as you
 move toward the end of fine-tuning.
@@ -402,9 +417,7 @@ Fine-tune the hyperparameters using cross-validation:
 are not sure about them (e.g., if you’re not sure whether to replace missing
 values with zeros or with the median value, or to just drop the rows).</li>
 <li>Unless there are very few hyperparameter values to explore, prefer random
-search over grid search. If training is very long, you may prefer a Bayesian
-optimization approach (e.g., using Gaussian process priors, as described by
-Jasper Snoek et al.)</li>
+search over grid search.</li>
 
 </ul>
 
@@ -413,12 +426,10 @@ Try Ensemble methods. Combining your best models will often produce better
 performance than running them individually.
 </p>
 
-
 <p>
 Once you are confident about your final model, measure its performance on the
 test set to estimate the generalization error.
 </p>
-
 
 <p>
 WARNING
@@ -427,48 +438,12 @@ start overfitting the test set.
 </p>
 
 </aside>
-<aside class="notes">
-<p>
-Document what you have done.
-</p>
-
-<p>
-Create a nice presentation.
-</p>
-<ul>
-<li>Make sure you highlight the big picture first.</li>
-
-</ul>
-
-<p>
-Explain why your solution achieves the business objective.
-</p>
-
-<p>
-Don’t forget to present interesting points you noticed along the way.
-</p>
-<ul>
-<li>Describe what worked and what did not.
-<ul>
-<li>List your assumptions and your system’s limitations.</li>
-
-</ul></li>
-
-</ul>
-
-<p>
-Ensure your key findings are communicated through beautiful visualizations or
-easy-to-remember statements (e.g., “the median income is the number-one
-predictor of housing prices”).
-</p>
-
-</aside>
 </section>
 </section>
 </div>
 </div>
-<script src="../../../reveal.js/lib/js/head.min.js"></script>
-<script src="../../../reveal.js/js/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3/js/reveal.js"></script>
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
@@ -494,8 +469,8 @@ transitionSpeed: 'default',
 
 // Optional libraries used to extend reveal.js
 dependencies: [
- { src: '../../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
- { src: '../../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
 
 });
 </script>

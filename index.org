@@ -1,10 +1,9 @@
 #+STARTUP: hideblocks
 #+OPTIONS: num:nil toc:nil author:nil timestamp:nil reveal_history:t
 #+REVEAL_THEME: white
-#+REVEAL_ROOT: ../../../reveal.js
 #+REVEAL_PLUGINS: (highlight notes)
 #+REVEAL_TITLE_SLIDE: <h1>%t</h1><h4>%s</h4><p>%e</p>
-#+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./dsc_logo.png
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./slide_images/dsc_logo.png
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND_SIZE: 15%
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND_POSITION: left 10px bottom 10px
 #+TITLE: End-to-End Machine Learning
@@ -12,6 +11,11 @@
 #+Author: Harriet Sands
 #+Email: harriet.sands@ons.gov.uk
 
+* Credit to Aurelien Geron
+:PROPERTIES:
+:CUSTOM_ID: credit
+:END:
+#+REVEAL_HTML: <p>This presentation borrows heavily from Chapter 2 of <i>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</i></p>
 * Look at the big picture
 :PROPERTIES:
 :CUSTOM_ID: big_picture
@@ -22,7 +26,7 @@
 :END:
 #+REVEAL_HTML: <h3 style="text-transform: capitalize">Richter's Predictor</h3>
 #+ATTR_HTML: :style border:none; box-shadow:none; max-width:50%
-[[./nepal_earthquake.jpeg]]
+[[./slide_images/nepal_earthquake.jpeg]]
 #+ATTR_REVEAL: :frag (appear)
 Can you predict the level of damage to buildings caused by the 2015 Gorkha earthquake in Nepal?
 ** Predicting earthquake damage
@@ -36,23 +40,8 @@ Can you predict the level of damage to buildings caused by the 2015 Gorkha earth
 Following the 7.8 Mw Gorkha Earthquake on April 25, 2015, Nepal carried out a
 massive household survey using mobile technology to assess building damage in
 the earthquake-affected districts.
-
-
-#+END_NOTES
-#+BEGIN_NOTES
-- Define the objective in business terms.
-- How will your solution be used?
-- What are the current solutions/workarounds (if any)?
-- How should you frame this problem (supervised/unsupervised, online/offline,
-  etc.)?
-- How should performance be measured?
-- Is the performance measure aligned with the business objective?
-- What would be the minimum performance needed to reach the business objective?
 - What are comparable problems? Can you reuse experience or tools?
 - Is human expertise available?
-- How would you solve the problem manually?
-- List the assumptions you (or others) have made so far.
-- Verify assumptions if possible.
 #+END_NOTES
 
 ** A model is not the end goal
@@ -64,8 +53,9 @@ the earthquake-affected districts.
   #+BEGIN_NOTES
   - What exactly is the business objective?
     - Building a model is probably not the end goal.
-    - How does the business expect to use and benefit from this model?
-  Knowing the objective is important because it
+    - How do you expect to use and benefit from this model?
+
+Knowing the objective is important because it
   will determine how you frame the problem, which algorithms you will select,
   which performance measure you will use to evaluate your model, and how much
   effort you will spend tweaking it.
@@ -75,12 +65,11 @@ to identify beneficiaries eligible for government assistance for housing
 reconstruction, it also collected other useful socio-economic information. In
 addition to housing reconstruction, this data serves a wide range of uses and
 users e.g. researchers, newly formed local governments, and citizens at large.
-The purpose of this portal is to open this data to the public.
-  
+
   #+END_NOTES
 - What are the current solutions?
   #+BEGIN_NOTES
-  understanding what the current solution looks like (if there is one) is
+  Understanding what the current solution looks like (if there is one) is
   critical, as it gives you a reference performance.
   Some early stage physics models, as well as widely held beliefs about how to
   earthquake proof buildings, but this model can potentially go further- looking
@@ -88,21 +77,36 @@ The purpose of this portal is to open this data to the public.
    #+END_NOTES
 - How should we frame this solution?
   #+BEGIN_NOTES
-  how should we frame this problem? supervised/unsupervised/reinforcement
-  learning? classification/regression or something else?
-  answer- We are predicting the level of damage from 1 to 3. The level of damage is an
-  ordinal variable meaning that ordering is important. This can be viewed as a
+  How should we frame this problem?
+
+  We are predicting the level of damage from 1 to 3. The level of damage is an
+  ordinal variable meaning that ordering is important.
+
+  This can be viewed as a
   classification or an ordinal regression problem. (Ordinal regression is
   sometimes described as an problem somewhere in between classification and
   regression.)
    #+END_NOTES
-** What does good mean?
+** What does good look like?
 :PROPERTIES:
 :CUSTOM_ID: good
 :END:
 \begin{equation}
 F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 \end{equation}
+#+BEGIN_NOTES
+Driven data, in order to have a leaderboard, sets a specific performance
+measure.
+In this case, it uses micro-averaged f1 score.
+
+To measure the performance of our algorithms, we'll use the F1 score which
+ balances the precision and recall of a classifier. Traditionally, the F1 score
+ is used to evaluate performance on a binary classifier, but since we have three
+ possible labels we will use a variant called the micro averaged F1 score.
+
+- What would be the minimum performance needed to reach the business objective?
+  refer to leaderboard?
+#+END_NOTES
 ** 
 :PROPERTIES:
 :CUSTOM_ID: good_explained
@@ -118,20 +122,29 @@ F_{micro}=\frac{2\cdot P_{micro}\cdot R_{micro}}{P_{micro}+R_{micro}}
 \end{equation}
 # #+REVEAL_HTML: <p>$$\textnormal{and}$$ $$TP$$ is True Positive,$$FP$$ is False Positive,$$FN$$ is False Negative,and $$k$$ represents each class in 1,2,3</p>
  #+BEGIN_NOTES
- To measure the performance of our algorithms, we'll use the F1 score which
- balances the precision and recall of a classifier. Traditionally, the F1 score
- is used to evaluate performance on a binary classifier, but since we have three
- possible labels we will use a variant called the micro averaged F1 score.
+ When you have a small positive class, then F1 score makes more sense than
+roc-auc, which generally gives a good indicator of performance.
+- In Micro-average method, you sum up the individual true positives, false positives, and false negatives of the system for different sets and then apply them to get the statistics.
+- In Macro-average, you take the average of the precision and recall of the system on different sets
+Micro-average is preferable if there is a class imbalance problem.
  #+END_NOTES
 ** Implementing in python
 :PROPERTIES:
 :CUSTOM_ID: good_in_python
 :END:
 #+REVEAL_HTML: <p>This is really easy with <code style="color:#b74d4d; background:whitesmoke">sklearn.metrics.f1_score</code> with the keyword argument <code style="color:#b74d4d; background:whitesmoke">average='micro'</code></p>
+** More detail on performance measures
+:PROPERTIES:
+:CUSTOM_ID: performance_links
+:END:
+[[https://medium.com/usf-msds/choosing-the-right-metric-for-machine-learning-models-part-1-a99d7d7414e4][Choosing the right regression metric]]
+
+[[https://medium.com/usf-msds/choosing-the-right-metric-for-evaluating-machine-learning-models-part-2-86d5649a5428][Choosing the right classification metric]]
 * Get the data
 :PROPERTIES:
 :CUSTOM_ID: get_the_data
 :END:
+[[https://eq2015.npc.gov.np/#/download][2015 Nepal Earthquake- Open Data Portal]]
 #+BEGIN_NOTES
 In typical environments your data would be available in a relational database
 (or some other common data store) and spread across multiple
@@ -161,15 +174,14 @@ Sample a test set, put it aside, and never look at it (no data snooping!).
 :PROPERTIES:
 :CUSTOM_ID: data_repos
 :END:
+# https://cdn.jsdelivr.net/npm/reveal.js@3
 #+BEGIN_NOTES
   Enter speaker notes here.
   - With bullet points
     - If necessary
 #+END_NOTES
-#+ATTR_ORG: :width 150 border:none box-shadow:none
-[[./iris.jpg]]
-[[./forest_fires_portugal.jpg]]
-[[./heart_disease.jpg]]
+#+ATTR_HTML: :style width:150; border:none; box-shadow:none; max-width:50%
+[[./slide_images/iris.jpg]]
 - [[https://archive.ics.uci.edu/ml/index.php][UCI Repository]]
 - [[https://www.kaggle.com/datasets][Kaggle]]
 - [[https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research][Wikipedia]]
@@ -185,59 +197,44 @@ heart disease predictions etc.
 
 #+REVEAL_HTML:<ul><li>Discovery and visualisation</li><li>Prepare your data for ML</li><li>Select a model</li><li>Fine-tune your model</li><li>Present your solution</li><li>Launch, monitor and maintain your system</li></ul>
 #+BEGIN_NOTES
-Note: try to get insights from a field expert for these steps.
-Create a copy of the data for exploration (sampling it down to a manageable size if necessary).
-Create a Jupyter notebook to keep a record of your data exploration.
-Study each attribute and its characteristics:
-Name
-Type (categorical, int/float, bounded/unbounded, text, structured, etc.)
-% of missing value
-Noisiness and type of noise (stochastic, outliers, rounding errors, etc.)
-Usefulness for the task
-Type of distribution (Gaussian, uniform, logarithmic, etc.)
-For supervised learning tasks, identify the target attribute(s).
-Visualize the data.
-Study the correlations between attributes.
-Study how you would solve the problem manually.
-Identify the promising transformations you may want to apply.
-Identify extra data that would be useful (go back to “Get the Data”).
-Document what you have learned.
-#+END_NOTES
-#+BEGIN_NOTES
-
-Work on copies of the data (keep the original dataset intact).
-
+1. Discovery
+   - Get insights from a field expert for exploratory analysis
+   - Study each attribute and its characteristics:
+     - Type (categorical, int/float, bounded/unbounded, text, structured, etc.)
+     - % of missing value
+     - Noisiness and type of noise (stochastic, outliers, rounding errors, etc.)
+     - Type of distribution (Gaussian, uniform, logarithmic, etc.)
+     - Study the correlations between attributes.
+     - Identify extra data that would be useful
+2. Prepare your data
 Write functions for all data transformations you apply, for five reasons:
 
 - So you can easily prepare the data the next time you get a fresh dataset
 - So you can apply these transformations in future projects
 - To clean and prepare the test set
-- To clean and prepare new data instances once your solution is live
 - To make it easy to treat your preparation choices as hyperparameters
 
 DATA CLEANING:
-Fix or remove outliers (optional).
-Fill in missing values (e.g., with zero, mean, median…) or drop their rows (or columns).
+- Fix or remove outliers (optional).
+- Fill in missing values (e.g., with zero, mean, median…) or drop their rows (or columns).
 
 FEATURE SELECTION (OPTIONAL):
-Drop the attributes that provide no useful information for the task.
+- Drop the attributes that provide no useful information for the task.
 
 FEATURE ENGINEERING, WHERE APPROPRIATE:
-Discretize continuous features.
-Decompose features (e.g., categorical, date/time, etc.).
-Add promising transformations of features (e.g., log(x), sqrt(x), x2, etc.).
-Aggregate features into promising new features.
+- Discretize continuous features.
+- Decompose features (e.g., categorical, date/time, etc.).
+- Add promising transformations of features (e.g., log(x), sqrt(x), x2, etc.).
+- Aggregate features into promising new features.
 
 FEATURE SCALING
-Standardize or normalize features.
-#+END_NOTES
-#+BEGIN_NOTES
+- Standardize or normalize features.
+
+3. Select a model
 
 If the data is huge, you may want to sample smaller training sets so you can
 train many different models in a reasonable time (be aware that this penalizes
 complex models such as large neural nets or Random Forests).
-
-Once again, try to automate these steps as much as possible.
 
 Train many quick-and-dirty models from different categories (e.g., linear, naive Bayes, SVM, Random Forest, neural net, etc.) using standard parameters.
 
@@ -246,18 +243,10 @@ For each model, use N-fold cross-validation and compute the mean and standard de
 
 Analyze the most significant variables for each algorithm.
 
-Analyze the types of errors the models make.
-What data would a human have used to avoid these errors?
-
-Perform a quick round of feature selection and engineering.
-
-Perform one or two more quick iterations of the five previous steps.
-
 Shortlist the top three to five most promising models, preferring models that
 make different types of errors.
-#+END_NOTES
-#+BEGIN_NOTES
 
+4. Fine-tune your model
 You will want to use as much data as possible for this step, especially as you
 move toward the end of fine-tuning.
 
@@ -268,36 +257,15 @@ Fine-tune the hyperparameters using cross-validation:
   are not sure about them (e.g., if you’re not sure whether to replace missing
   values with zeros or with the median value, or to just drop the rows).
 - Unless there are very few hyperparameter values to explore, prefer random
-  search over grid search. If training is very long, you may prefer a Bayesian
-  optimization approach (e.g., using Gaussian process priors, as described by
-  Jasper Snoek et al.)
+  search over grid search. 
 
 Try Ensemble methods. Combining your best models will often produce better
 performance than running them individually.
 
-
 Once you are confident about your final model, measure its performance on the
 test set to estimate the generalization error.
-
 
 WARNING
 Don’t tweak your model after measuring the generalization error: you would just
 start overfitting the test set.
-#+END_NOTES
-#+BEGIN_NOTES
-Document what you have done.
-
-Create a nice presentation.
-- Make sure you highlight the big picture first.
-
-Explain why your solution achieves the business objective.
-
-Don’t forget to present interesting points you noticed along the way.
-- Describe what worked and what did not.
-  - List your assumptions and your system’s limitations.
-
-Ensure your key findings are communicated through beautiful visualizations or
-easy-to-remember statements (e.g., “the median income is the number-one
-predictor of housing prices”).
-
 #+END_NOTES
