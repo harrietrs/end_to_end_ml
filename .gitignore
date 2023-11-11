@@ -1,4 +1,5 @@
 notebooks/my_model.pkl
+notebooks/.ipynb_checkpoints
 *.pkl
 *.DS_Store
 .ipynb_checkpoints
