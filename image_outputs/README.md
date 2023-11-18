@@ -1,0 +1,1 @@
+This folder is where the image outputs of the `notebooks/end_to_end_ml_earthquake_damage_prediction.ipynb` are saved.
